@@ -60,7 +60,10 @@ export const AuthProvider = ({
         .eq("id", userId)
         .maybeSingle();
 
-      if (error) {
+      if (
+        error &&
+        !error.message?.includes("Forbidden use of secret API key")
+      ) {
         console.warn(
           "Could not fetch user profile from Supabase DB:",
           error.message || error
